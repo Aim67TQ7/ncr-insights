@@ -1,7 +1,7 @@
-import ECRDashboard from '@/components/dashboard/ECRDashboard';
+import NCRDashboard from '@/components/dashboard/NCRDashboard';
 
 const Index = () => {
-  return <ECRDashboard />;
+  return <NCRDashboard />;
 };
 
 export default Index;

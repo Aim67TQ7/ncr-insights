@@ -1,12 +1,12 @@
 import { Activity, Clock, AlertTriangle, DollarSign } from 'lucide-react';
 import { MetricCard } from './MetricCard';
-import { ECRTrendChart } from './ECRTrendChart';
+import { NCRTrendChart } from './NCRTrendChart';
 import { JobFamilyRisk } from './JobFamilyRisk';
 import { IssuePatterns } from './IssuePatterns';
 import { PredictiveRisk } from './PredictiveRisk';
 import { ActionRecommendations } from './ActionRecommendations';
 
-const ecrData = [
+const ncrData = [
   { month: 'Apr24', total: 16, critical: 3, avgDays: 8 },
   { month: 'May24', total: 27, critical: 8, avgDays: 12 },
   { month: 'Jun24', total: 24, critical: 7, avgDays: 11 },
@@ -31,12 +31,10 @@ const ecrData = [
 ];
 
 const jobFamilyRisk = [
-  { family: 'Material Handling Heavy', ecrCount: 89, avgResolution: 14, riskScore: 92, trend: 'up' as const },
-  { family: 'Material Handling Metal Stamping', ecrCount: 72, avgResolution: 12, riskScore: 88, trend: 'up' as const },
-  { family: 'General Separation', ecrCount: 48, avgResolution: 10, riskScore: 72, trend: 'stable' as const },
-  { family: 'Metal Detection', ecrCount: 38, avgResolution: 11, riskScore: 78, trend: 'up' as const },
-  { family: 'Manufacturing Engineering', ecrCount: 31, avgResolution: 8, riskScore: 65, trend: 'down' as const },
-  { family: 'Printing Products', ecrCount: 22, avgResolution: 9, riskScore: 58, trend: 'stable' as const },
+  { family: 'Fabrication', ncrCount: 48, avgResolution: 10, riskScore: 72, trend: 'stable' as const },
+  { family: 'Turret', ncrCount: 38, avgResolution: 11, riskScore: 78, trend: 'up' as const },
+  { family: 'Manufacturing Engineering', ncrCount: 31, avgResolution: 8, riskScore: 65, trend: 'down' as const },
+  { family: 'Printing Products', ncrCount: 22, avgResolution: 9, riskScore: 58, trend: 'stable' as const },
 ];
 
 const issuePatterns = [
@@ -49,19 +47,17 @@ const issuePatterns = [
 ];
 
 const predictiveIndicators = [
-  { jobNumber: '9424xxx-1-1', family: 'Material Handling Heavy', predictedECRs: 3.2, confidence: 87, keyRisks: ['Hardware sizing', 'Fit-up issues'] },
-  { jobNumber: '9425xxx-1-1', family: 'Material Handling Metal Stamping', predictedECRs: 2.8, confidence: 84, keyRisks: ['Tolerance stack', 'Weld access'] },
-  { jobNumber: '8630xxx', family: 'General Separation', predictedECRs: 1.4, confidence: 91, keyRisks: ['Clearance verification'] },
-  { jobNumber: 'MD-XXXX', family: 'Metal Detection', predictedECRs: 2.1, confidence: 79, keyRisks: ['Mounting alignment', 'Cable routing'] },
+  { jobNumber: '8630xxx', family: 'Fabrication', predictedNCRs: 1.4, confidence: 91, keyRisks: ['Clearance verification'] },
+  { jobNumber: 'MD-XXXX', family: 'Turret', predictedNCRs: 2.1, confidence: 79, keyRisks: ['Mounting alignment', 'Cable routing'] },
 ];
 
-export function ECROverview() {
+export function NCROverview() {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Key Metrics */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <MetricCard
-          title="Total ECRs (21m)"
+          title="Total NCRs (21m)"
           value="465"
           subtitle="↑ 12% vs prior year"
           subtitleColor="destructive"
@@ -77,7 +73,7 @@ export function ECROverview() {
         <MetricCard
           title="Critical Issues"
           value="125"
-          subtitle="38% of all ECRs"
+          subtitle="38% of all NCRs"
           subtitleColor="destructive"
           icon={AlertTriangle}
         />
@@ -92,13 +88,13 @@ export function ECROverview() {
 
       {/* Trend Chart */}
       <section>
-        <ECRTrendChart data={ecrData} />
+        <NCRTrendChart data={ncrData} />
       </section>
 
       {/* Risk Analysis Grid */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <JobFamilyRisk data={jobFamilyRisk} />
-        <IssuePatterns data={issuePatterns} totalEcrs={465} />
+        <IssuePatterns data={issuePatterns} totalNcrs={465} />
       </section>
 
       {/* Predictive Risk */}

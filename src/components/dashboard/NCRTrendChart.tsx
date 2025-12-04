@@ -10,15 +10,15 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-interface ECRDataPoint {
+interface NCRDataPoint {
   month: string;
   total: number;
   critical: number;
   avgDays: number;
 }
 
-interface ECRTrendChartProps {
-  data: ECRDataPoint[];
+interface NCRTrendChartProps {
+  data: NCRDataPoint[];
 }
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -37,12 +37,12 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-export function ECRTrendChart({ data }: ECRTrendChartProps) {
+export function NCRTrendChart({ data }: NCRTrendChartProps) {
   return (
     <div className="metric-card">
       <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
         <TrendingUp className="w-5 h-5 text-primary" />
-        ECR Volume Trend (Last 21 Months)
+        NCR Volume Trend (Last 21 Months)
       </h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
@@ -66,7 +66,7 @@ export function ECRTrendChart({ data }: ECRTrendChartProps) {
             dataKey="total"
             stroke="hsl(217 91% 60%)"
             strokeWidth={2}
-            name="Total ECRs"
+            name="Total NCRs"
             dot={{ fill: 'hsl(217 91% 60%)', strokeWidth: 0, r: 4 }}
             activeDot={{ r: 6, stroke: 'hsl(217 91% 60%)', strokeWidth: 2, fill: 'hsl(222 47% 4%)' }}
           />

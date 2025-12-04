@@ -3,7 +3,7 @@ import { getRiskColor } from './RiskBar';
 interface PredictiveJob {
   jobNumber: string;
   family: string;
-  predictedECRs: number;
+  predictedNCRs: number;
   confidence: number;
   keyRisks: string[];
 }
@@ -18,7 +18,7 @@ export function PredictiveRisk({ data }: PredictiveRiskProps) {
       <h2 className="text-xl font-semibold mb-4">Predicted Risk for Incoming Jobs</h2>
       <div className="space-y-3">
         {data.map((job, i) => {
-          const riskColor = job.predictedECRs > 2.5 ? getRiskColor(90) : getRiskColor(75);
+          const riskColor = job.predictedNCRs > 2.5 ? getRiskColor(90) : getRiskColor(75);
           
           return (
             <div
@@ -35,9 +35,9 @@ export function PredictiveRisk({ data }: PredictiveRiskProps) {
                     className="text-2xl font-bold font-mono"
                     style={{ color: riskColor }}
                   >
-                    {job.predictedECRs}
+                    {job.predictedNCRs}
                   </div>
-                  <div className="text-xs text-muted-foreground">predicted ECRs</div>
+                  <div className="text-xs text-muted-foreground">predicted NCRs</div>
                 </div>
               </div>
               

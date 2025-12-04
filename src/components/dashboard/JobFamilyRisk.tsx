@@ -3,7 +3,7 @@ import { RiskBar } from './RiskBar';
 
 interface JobFamily {
   family: string;
-  ecrCount: number;
+  ncrCount: number;
   avgResolution: number;
   riskScore: number;
   trend: 'up' | 'down' | 'stable';
@@ -30,7 +30,7 @@ export function JobFamilyRisk({ data }: JobFamilyRiskProps) {
             <div className="flex-1 min-w-0">
               <div className="font-medium text-sm truncate">{family.family}</div>
               <div className="text-xs text-muted-foreground">
-                <span className="font-mono">{family.ecrCount}</span> ECRs |{' '}
+                <span className="font-mono">{family.ncrCount}</span> NCRs |{' '}
                 <span className="font-mono">{family.avgResolution}</span>d avg
               </div>
             </div>
