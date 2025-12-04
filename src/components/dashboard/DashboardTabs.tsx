@@ -6,7 +6,7 @@ interface DashboardTabsProps {
 }
 
 const tabs = [
-  { id: 'overview', label: 'ECR Overview', icon: Activity },
+  { id: 'overview', label: 'NCR Overview', icon: Activity },
   { id: 'hardware', label: 'Hardware Specs', icon: Database },
   { id: 'jobs', label: 'Job Analyzer', icon: TrendingDown },
 ];

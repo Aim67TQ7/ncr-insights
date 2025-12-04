@@ -121,7 +121,7 @@ export default function Landing() {
                       <div>
                         <div className="font-semibold text-destructive">Rework Risk Detected</div>
                         <div className="text-sm text-muted-foreground mt-1">
-                          Line 3 - Material Handling shows 87% probability of tolerance issues
+                          Assembly Line 3 shows 87% probability of tolerance issues
                         </div>
                       </div>
                     </div>

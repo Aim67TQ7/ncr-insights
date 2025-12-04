@@ -10,7 +10,7 @@ interface Issue {
 
 interface IssuePatternsProps {
   data: Issue[];
-  totalEcrs: number;
+  totalNcrs: number;
 }
 
 const impactColors = {
@@ -19,7 +19,7 @@ const impactColors = {
   Low: 'text-success',
 };
 
-export function IssuePatterns({ data, totalEcrs }: IssuePatternsProps) {
+export function IssuePatterns({ data, totalNcrs }: IssuePatternsProps) {
   return (
     <div className="metric-card">
       <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
@@ -49,7 +49,7 @@ export function IssuePatterns({ data, totalEcrs }: IssuePatternsProps) {
             </div>
             <div className="text-right ml-4">
               <div className="text-sm font-bold font-mono text-warning">
-                {Math.round((issue.frequency / totalEcrs) * 100)}%
+                {Math.round((issue.frequency / totalNcrs) * 100)}%
               </div>
             </div>
           </div>

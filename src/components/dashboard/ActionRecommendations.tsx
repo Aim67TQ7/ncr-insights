@@ -7,7 +7,7 @@ interface Action {
 
 const actions: Action[] = [
   {
-    highlight: 'Flag Material Handling Heavy jobs',
+    highlight: 'Flag high-risk jobs',
     text: 'for pre-release DFM review—87% of your cost exposure',
   },
   {
@@ -16,7 +16,7 @@ const actions: Action[] = [
   },
   {
     highlight: 'Synchronize Windchill-DXF-Print workflow',
-    text: 'before next release cycle—24 ECRs tied to drawing divergence',
+    text: 'before next release cycle—24 NCRs tied to drawing divergence',
   },
   {
     highlight: 'Assign manufacturing liaison to design kickoff',

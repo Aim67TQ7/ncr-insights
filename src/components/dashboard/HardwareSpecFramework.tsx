@@ -50,14 +50,14 @@ const specCategories = {
   },
   conflicts: {
     title: 'Known Conflict Matrix',
-    description: "Hardware combinations that DON'T work (historical ECRs)",
+    description: "Hardware combinations that DON'T work (historical NCRs)",
     specs: [
       {
         category: 'Bearing-Bolt Mismatches (DO NOT USE)',
         standards: [
-          { conflict: '7/16" bore + 1/2" bolt', reason: 'Bolt too large', ecrs: 8, solution: 'Use 7/16"-20 bolt' },
-          { conflict: '1/2" bore + 7/16" bolt', reason: 'Bolt too small', ecrs: 6, solution: 'Use 1/2"-13 bolt' },
-          { conflict: '3/8" carriage + 1/2" hole', reason: "Square won't engage", ecrs: 5, solution: 'Use 1/2" carriage bolt' },
+          { conflict: '7/16" bore + 1/2" bolt', reason: 'Bolt too large', ncrs: 8, solution: 'Use 7/16"-20 bolt' },
+          { conflict: '1/2" bore + 7/16" bolt', reason: 'Bolt too small', ncrs: 6, solution: 'Use 1/2"-13 bolt' },
+          { conflict: '3/8" carriage + 1/2" hole', reason: "Square won't engage", ncrs: 5, solution: 'Use 1/2" carriage bolt' },
         ]
       }
     ]
@@ -74,8 +74,8 @@ const implementationPath = [
 ];
 
 const roiCalc = {
-  baseline: { ecrs: 34, monthCost: 128500 },
-  target: { ecrs: 8, monthCost: 30000 },
+  baseline: { ncrs: 34, monthCost: 128500 },
+  target: { ncrs: 8, monthCost: 30000 },
   savings: { immediate: 98500, annual: 1182000, payback_months: 1.2 }
 };
 
@@ -259,15 +259,15 @@ export function HardwareSpecFramework() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="metric-card border-destructive/30 bg-gradient-to-br from-destructive/10 via-card to-card">
               <div className="text-sm text-muted-foreground mb-2">Current State</div>
-              <div className="text-4xl font-bold text-destructive mb-1">{roiCalc.baseline.ecrs}</div>
-              <div className="text-sm text-muted-foreground mb-3">hardware ECRs/month</div>
+              <div className="text-4xl font-bold text-destructive mb-1">{roiCalc.baseline.ncrs}</div>
+              <div className="text-sm text-muted-foreground mb-3">hardware NCRs/month</div>
               <div className="text-2xl font-bold text-destructive">${(roiCalc.baseline.monthCost / 1000).toFixed(0)}K</div>
               <div className="text-xs text-muted-foreground">monthly cost</div>
             </div>
             <div className="metric-card border-success/30 bg-gradient-to-br from-success/10 via-card to-card">
               <div className="text-sm text-muted-foreground mb-2">Target State</div>
-              <div className="text-4xl font-bold text-success mb-1">{roiCalc.target.ecrs}</div>
-              <div className="text-sm text-muted-foreground mb-3">hardware ECRs/month</div>
+              <div className="text-4xl font-bold text-success mb-1">{roiCalc.target.ncrs}</div>
+              <div className="text-sm text-muted-foreground mb-3">hardware NCRs/month</div>
               <div className="text-2xl font-bold text-success">${(roiCalc.target.monthCost / 1000).toFixed(0)}K</div>
               <div className="text-xs text-muted-foreground">monthly cost</div>
             </div>

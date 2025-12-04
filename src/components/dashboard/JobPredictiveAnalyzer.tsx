@@ -21,10 +21,10 @@ interface Job {
 }
 
 interface ScoredJob extends Job {
-  predictedECRs: number;
+  predictedNCRs: number;
   riskScore: number;
   confidence: number;
-  baseECRProb: number;
+  baseNCRProb: number;
   complexityScore: number;
   deptMultiplier: number;
   keyRisks: string[];
@@ -40,11 +40,11 @@ const jobsRaw: Job[] = [
   { jobNum: '9396522-1-2', dept: '0041', opDesc: 'Lathe/Saw Operations', complete: true, qty: 1, estHours: 0.75 },
 ];
 
-const ecrHistory: Record<string, { ecrRate: number; keyRisks: string[]; complexity: number }> = {
-  'Saw - Magnet Cut Hand': { ecrRate: 0.08, keyRisks: ['Dimension accuracy', 'Cut edge finish'], complexity: 2 },
-  'Assembly - Heavy': { ecrRate: 0.35, keyRisks: ['Fitment', 'Hardware mismatch', 'Clearance'], complexity: 8 },
-  'Deburr/Finish - Sandblast': { ecrRate: 0.14, keyRisks: ['Finish consistency', 'Masking damage'], complexity: 3 },
-  'Lathe/Saw Operations': { ecrRate: 0.18, keyRisks: ['Tolerance stack', 'Surface finish'], complexity: 4 },
+const ncrHistory: Record<string, { ncrRate: number; keyRisks: string[]; complexity: number }> = {
+  'Saw - Magnet Cut Hand': { ncrRate: 0.08, keyRisks: ['Dimension accuracy', 'Cut edge finish'], complexity: 2 },
+  'Assembly - Heavy': { ncrRate: 0.35, keyRisks: ['Fitment', 'Hardware mismatch', 'Clearance'], complexity: 8 },
+  'Deburr/Finish - Sandblast': { ncrRate: 0.14, keyRisks: ['Finish consistency', 'Masking damage'], complexity: 3 },
+  'Lathe/Saw Operations': { ncrRate: 0.18, keyRisks: ['Tolerance stack', 'Surface finish'], complexity: 4 },
 };
 
 const deptRisk: Record<string, number> = {
@@ -56,26 +56,26 @@ const deptRisk: Record<string, number> = {
 };
 
 const scoreJob = (job: Job): ScoredJob => {
-  const opPattern = ecrHistory[job.opDesc] || { ecrRate: 0.15, keyRisks: ['Generic risk'], complexity: 3 };
+  const opPattern = ncrHistory[job.opDesc] || { ncrRate: 0.15, keyRisks: ['Generic risk'], complexity: 3 };
   const deptMultiplier = deptRisk[job.dept] || 1.0;
   
-  let baseECRProb = opPattern.ecrRate;
+  let baseNCRProb = opPattern.ncrRate;
   let complexityScore = opPattern.complexity;
   if (job.qty > 3) complexityScore += 2;
   if (job.stages && job.stages > 8) complexityScore += 1;
   if (job.estHours > 1) complexityScore += 1;
   
   const stageRisk = job.stages ? Math.min(job.stages * 0.05, 0.25) : 0;
-  const predictedECRs = (baseECRProb + (complexityScore * 0.03) + stageRisk) * deptMultiplier;
+  const predictedNCRs = (baseNCRProb + (complexityScore * 0.03) + stageRisk) * deptMultiplier;
   const confidence = Math.max(65, 95 - (complexityScore * 2));
-  const riskScore = Math.min(95, predictedECRs * 100);
+  const riskScore = Math.min(95, predictedNCRs * 100);
   
   return {
     ...job,
-    predictedECRs: parseFloat(predictedECRs.toFixed(2)),
+    predictedNCRs: parseFloat(predictedNCRs.toFixed(2)),
     riskScore: Math.round(riskScore),
     confidence: Math.round(confidence),
-    baseECRProb: parseFloat(baseECRProb.toFixed(3)),
+    baseNCRProb: parseFloat(baseNCRProb.toFixed(3)),
     complexityScore,
     deptMultiplier,
     keyRisks: opPattern.keyRisks,
@@ -86,7 +86,7 @@ const scoreJob = (job: Job): ScoredJob => {
 };
 
 const getRiskFactors = (job: ScoredJob) => [
-  { factor: 'Operation Type', value: Math.round(job.baseECRProb * 100), max: 35 },
+  { factor: 'Operation Type', value: Math.round(job.baseNCRProb * 100), max: 35 },
   { factor: 'Complexity', value: Math.min(Math.round(job.complexityScore * 10), 40), max: 40 },
   { factor: 'Department Risk', value: Math.round((job.deptMultiplier - 1) * 50), max: 40 },
   { factor: 'Multi-Stage Ops', value: job.stages ? Math.round(Math.min(job.stages * 5, 30)) : 0, max: 30 },
@@ -120,8 +120,8 @@ export function JobPredictiveAnalyzer() {
   const stats = {
     avgRisk: Math.round(scoredJobs.reduce((sum, j) => sum + j.riskScore, 0) / scoredJobs.length),
     highRiskCount: scoredJobs.filter(j => j.riskScore >= 70).length,
-    totalPredictedECRs: parseFloat(scoredJobs.reduce((sum, j) => sum + j.predictedECRs, 0).toFixed(1)),
-    estimatedCost: Math.round(scoredJobs.reduce((sum, j) => sum + j.predictedECRs, 0) * 45 * 85),
+    totalPredictedNCRs: parseFloat(scoredJobs.reduce((sum, j) => sum + j.predictedNCRs, 0).toFixed(1)),
+    estimatedCost: Math.round(scoredJobs.reduce((sum, j) => sum + j.predictedNCRs, 0) * 45 * 85),
   };
 
   const jobRiskComparison = scoredJobs.map(j => ({
@@ -140,14 +140,14 @@ export function JobPredictiveAnalyzer() {
           <div className="text-xs text-muted-foreground mt-2">{stats.highRiskCount} high-risk jobs</div>
         </div>
         <div className="metric-card">
-          <div className="text-muted-foreground text-sm mb-2">Predicted ECRs</div>
-          <div className="text-3xl font-bold font-mono text-warning">{stats.totalPredictedECRs}</div>
+          <div className="text-muted-foreground text-sm mb-2">Predicted NCRs</div>
+          <div className="text-3xl font-bold font-mono text-warning">{stats.totalPredictedNCRs}</div>
           <div className="text-xs text-muted-foreground mt-2">across active jobs</div>
         </div>
         <div className="metric-card">
           <div className="text-muted-foreground text-sm mb-2">Est. Rework Cost</div>
           <div className="text-3xl font-bold font-mono text-destructive">${(stats.estimatedCost / 1000).toFixed(0)}K</div>
-          <div className="text-xs text-muted-foreground mt-2">if all ECRs occur</div>
+          <div className="text-xs text-muted-foreground mt-2">if all NCRs occur</div>
         </div>
         <div className="metric-card">
           <div className="text-muted-foreground text-sm mb-2">Mitigation Potential</div>
@@ -187,7 +187,7 @@ export function JobPredictiveAnalyzer() {
                   <div className={`text-2xl font-bold font-mono ${getRiskColor(job.riskScore)}`}>
                     {job.riskScore}
                   </div>
-                  <div className="text-xs text-muted-foreground">{job.predictedECRs} ECRs</div>
+                  <div className="text-xs text-muted-foreground">{job.predictedNCRs} NCRs</div>
                 </div>
               </div>
             </button>
