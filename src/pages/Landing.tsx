@@ -3,19 +3,15 @@ import { ArrowRight, BarChart3, Zap, Shield, Smartphone, Monitor, TrendingUp, Ch
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
-
 export default function Landing() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
-
   const handleGetStarted = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle signup logic
     console.log('Signup with:', email);
   };
-
-  return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+  return <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -70,13 +66,7 @@ export default function Landing() {
               
               {/* CTA Form */}
               <form onSubmit={handleGetStarted} className="flex flex-col sm:flex-row gap-3 max-w-md">
-                <Input
-                  type="email"
-                  placeholder="Enter your work email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="h-12 px-4 bg-card border-border"
-                />
+                <Input type="email" placeholder="Enter your work email" value={email} onChange={e => setEmail(e.target.value)} className="h-12 px-4 bg-card border-border" />
                 <Button type="submit" size="lg" className="h-12 px-6 gap-2 whitespace-nowrap">
                   Start Free Trial
                   <ArrowRight className="w-4 h-4" />
@@ -101,7 +91,9 @@ export default function Landing() {
             </div>
             
             {/* Hero Visual */}
-            <div className="relative animate-fade-in" style={{ animationDelay: '200ms' }}>
+            <div className="relative animate-fade-in" style={{
+            animationDelay: '200ms'
+          }}>
               <div className="relative bg-gradient-to-br from-card to-card/50 rounded-2xl border border-border p-6 shadow-2xl">
                 {/* Mock dashboard preview */}
                 <div className="space-y-4">
@@ -145,13 +137,9 @@ export default function Landing() {
                   
                   {/* Chart placeholder */}
                   <div className="h-32 bg-background/30 rounded-lg flex items-end justify-around px-4 pb-4 gap-2">
-                    {[40, 65, 45, 80, 55, 90, 70, 95, 85].map((h, i) => (
-                      <div 
-                        key={i} 
-                        className="w-full bg-gradient-to-t from-primary to-primary/50 rounded-t"
-                        style={{ height: `${h}%` }}
-                      />
-                    ))}
+                    {[40, 65, 45, 80, 55, 90, 70, 95, 85].map((h, i) => <div key={i} className="w-full bg-gradient-to-t from-primary to-primary/50 rounded-t" style={{
+                    height: `${h}%`
+                  }} />)}
                   </div>
                 </div>
               </div>
@@ -164,7 +152,9 @@ export default function Landing() {
                 </div>
               </div>
               
-              <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-lg p-3 shadow-lg animate-float" style={{ animationDelay: '1s' }}>
+              <div className="absolute -bottom-4 -left-4 bg-card border border-border rounded-lg p-3 shadow-lg animate-float" style={{
+              animationDelay: '1s'
+            }}>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-warning" />
                   <span className="text-sm font-medium">2.3 hrs avg saved/day</span>
@@ -189,31 +179,25 @@ export default function Landing() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: AlertTriangle,
-                title: "Reactive, Not Proactive",
-                description: "By the time you spot a defect, it's already cost you time, materials, and customer trust."
-              },
-              {
-                icon: Clock,
-                title: "Data Trapped in Silos",
-                description: "Quality data lives in spreadsheets, tribal knowledge, and disconnected systems that don't talk."
-              },
-              {
-                icon: BarChart3,
-                title: "No Predictive Visibility",
-                description: "You can see what happened, but not what's about to happen. Traditional tools can't predict trends."
-              }
-            ].map((pain, i) => (
-              <div key={i} className="bg-background rounded-xl border border-border p-6 hover:border-primary/50 transition-colors">
+            {[{
+            icon: AlertTriangle,
+            title: "Reactive, Not Proactive",
+            description: "By the time you spot a defect, it's already cost you time, materials, and customer trust."
+          }, {
+            icon: Clock,
+            title: "Data Trapped in Silos",
+            description: "Quality data lives in spreadsheets, tribal knowledge, and disconnected systems that don't talk."
+          }, {
+            icon: BarChart3,
+            title: "No Predictive Visibility",
+            description: "You can see what happened, but not what's about to happen. Traditional tools can't predict trends."
+          }].map((pain, i) => <div key={i} className="bg-background rounded-xl border border-border p-6 hover:border-primary/50 transition-colors">
                 <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
                   <pain.icon className="w-6 h-6 text-destructive" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{pain.title}</h3>
                 <p className="text-muted-foreground">{pain.description}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -248,12 +232,10 @@ export default function Landing() {
                     from any smartphone. No training required.
                   </p>
                   <ul className="space-y-2">
-                    {['Photo & video capture', 'Voice-to-text notes', 'Barcode/QR scanning', 'Offline-first sync'].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm">
+                    {['Photo & video capture', 'Voice-to-text notes', 'Barcode/QR scanning', 'Offline-first sync'].map((item, i) => <li key={i} className="flex items-center gap-2 text-sm">
                         <CheckCircle2 className="w-4 h-4 text-primary" />
                         <span>{item}</span>
-                      </li>
-                    ))}
+                      </li>)}
                   </ul>
                 </div>
               </div>
@@ -272,12 +254,10 @@ export default function Landing() {
                     Drill down from plant-wide to individual work orders.
                   </p>
                   <ul className="space-y-2">
-                    {['Live rework tracking', 'Cost impact analysis', 'Trend visualization', 'Custom report builder'].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm">
+                    {['Live rework tracking', 'Cost impact analysis', 'Trend visualization', 'Custom report builder'].map((item, i) => <li key={i} className="flex items-center gap-2 text-sm">
                         <CheckCircle2 className="w-4 h-4 text-primary" />
                         <span>{item}</span>
-                      </li>
-                    ))}
+                      </li>)}
                   </ul>
                 </div>
               </div>
@@ -296,12 +276,10 @@ export default function Landing() {
                     predict quality issues before they cause rework.
                   </p>
                   <ul className="space-y-2">
-                    {['Defect probability scoring', 'Root cause correlation', 'Early warning alerts', 'Continuous model training'].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm">
+                    {['Defect probability scoring', 'Root cause correlation', 'Early warning alerts', 'Continuous model training'].map((item, i) => <li key={i} className="flex items-center gap-2 text-sm">
                         <CheckCircle2 className="w-4 h-4 text-primary" />
                         <span>{item}</span>
-                      </li>
-                    ))}
+                      </li>)}
                   </ul>
                 </div>
               </div>
@@ -320,12 +298,10 @@ export default function Landing() {
                     and integrations that fit your existing stack.
                   </p>
                   <ul className="space-y-2">
-                    {['SSO & role-based access', 'ERP/MES integrations', 'SOC 2 compliant', 'On-prem deployment option'].map((item, i) => (
-                      <li key={i} className="flex items-center gap-2 text-sm">
+                    {['SSO & role-based access', 'ERP/MES integrations', 'SOC 2 compliant', 'On-prem deployment option'].map((item, i) => <li key={i} className="flex items-center gap-2 text-sm">
                         <CheckCircle2 className="w-4 h-4 text-primary" />
                         <span>{item}</span>
-                      </li>
-                    ))}
+                      </li>)}
                   </ul>
                 </div>
               </div>
@@ -347,80 +323,33 @@ export default function Landing() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                step: "01",
-                title: "Connect Your Data",
-                description: "Import historical quality data or start fresh. Integrate with your ERP, MES, or just use our mobile app."
-              },
-              {
-                step: "02",
-                title: "Capture Everything",
-                description: "Your team logs issues, measurements, and observations from any device. Data flows in real-time."
-              },
-              {
-                step: "03",
-                title: "Act on Insights",
-                description: "Our ML engine spots patterns humans miss. Get alerts before problems escalate to costly rework."
-              }
-            ].map((step, i) => (
-              <div key={i} className="relative">
+            {[{
+            step: "01",
+            title: "Connect Your Data",
+            description: "Import historical quality data or start fresh. Integrate with your ERP, MES, or just use our mobile app."
+          }, {
+            step: "02",
+            title: "Capture Everything",
+            description: "Your team logs issues, measurements, and observations from any device. Data flows in real-time."
+          }, {
+            step: "03",
+            title: "Act on Insights",
+            description: "Our ML engine spots patterns humans miss. Get alerts before problems escalate to costly rework."
+          }].map((step, i) => <div key={i} className="relative">
                 <div className="text-6xl font-bold text-primary/10 mb-4">{step.step}</div>
                 <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
                 <p className="text-muted-foreground">{step.description}</p>
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-8 right-0 translate-x-1/2">
+                {i < 2 && <div className="hidden md:block absolute top-8 right-0 translate-x-1/2">
                     <ArrowRight className="w-6 h-6 text-primary/30" />
-                  </div>
-                )}
-              </div>
-            ))}
+                  </div>}
+              </div>)}
           </div>
         </div>
       </section>
 
       {/* Social Proof */}
       <section className="py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Trusted by manufacturing leaders
-            </h2>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                quote: "We reduced rework costs by 38% in the first quarter. The predictive alerts alone paid for the entire platform.",
-                author: "Sarah Chen",
-                role: "VP of Quality, Precision Manufacturing Co."
-              },
-              {
-                quote: "Finally, a quality tool our operators actually use. The mobile capture is so intuitive, adoption was instant.",
-                author: "Mike Rodriguez",
-                role: "Operations Director, Industrial Solutions Inc."
-              },
-              {
-                quote: "The ML insights surfaced a supplier issue we'd been chasing for months. Game changer for our root cause analysis.",
-                author: "Jennifer Walsh",
-                role: "Quality Manager, Advanced Components Ltd."
-              }
-            ].map((testimonial, i) => (
-              <div key={i} className="bg-card rounded-xl border border-border p-6">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, j) => (
-                    <div key={j} className="w-5 h-5 text-warning">★</div>
-                  ))}
-                </div>
-                <p className="text-foreground mb-6 leading-relaxed">"{testimonial.quote}"</p>
-                <div>
-                  <div className="font-semibold">{testimonial.author}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        
       </section>
 
       {/* CTA Section */}
@@ -469,6 +398,5 @@ export default function Landing() {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 }
